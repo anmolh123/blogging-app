@@ -4,7 +4,9 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     blogs : [],
     start: 0,
-    comments: {}
+    end: false,
+    comments: {},
+    users: {}
 }
 
 const reducer = (state = initialState, action)=>{
@@ -19,9 +21,14 @@ const reducer = (state = initialState, action)=>{
             // return newState;
         }
         case actionTypes.LOAD_BLOG:{
+
+            action.payload.forEach( blog=> {
+                blog.imageSrc = `image${Math.floor(Math.random() * 5) + 1}`;
+            });
             let newState= {
                 ...state,
                 start: action.start,
+                end: action.payload.length ? false : true,
                 blogs : [ ...state.blogs ,...action.payload]
             }
             // console.log('READ_BLOG', newState);
@@ -55,7 +62,23 @@ const reducer = (state = initialState, action)=>{
             // console.log("newState ",newState);
             return newState;
         }
-
+        case actionTypes.TOGGLE_LIKE:{
+            const blogIndex = state.blogs.findIndex( blog => blog.id === action.id );
+            const updatedBlog = [...state.blogs];
+            updatedBlog[blogIndex] = {
+                ...state.blogs[blogIndex], 
+                isLike : !state.blogs[blogIndex].isLike
+            };
+            return { ...state, blogs : updatedBlog };
+        }
+        case actionTypes.LOAD_USERS:{
+            const newState = {
+                ...state,
+                users: { ...state.users, [action.userId]: {...action.payload} }
+            }
+            // console.log("newState ",newState);
+            return newState;
+        }
         default:
             return state;
     }

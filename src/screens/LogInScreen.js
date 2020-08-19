@@ -13,6 +13,7 @@ import CustomButton from '../components/CustomButton';
 import { Actions } from 'react-native-router-flux';
 import { UserLoginContext } from '../context/UserLoginContext';
 import AsyncStorage from '@react-native-community/async-storage';
+import Header from '../components/Header';
 
 const LogInScreen = props =>{
 
@@ -90,6 +91,8 @@ const LogInScreen = props =>{
 
     return (
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
+            <View style={styles.screenContainer}>
+            <Header showLeftIcon={false} title="Login"/>
             <View style={styles.screen} >
                 <Card style={styles.card}>
                     <View style={styles.Inputcontainer}>
@@ -119,17 +122,21 @@ const LogInScreen = props =>{
                         </CustomButton>
                         <CustomButton 
                             style={styles.signUpButton}
-                            onPress={()=> Actions.replace('signup')}
+                            onPress={()=> Actions.signup()}
                         >
                             Sign Up
                         </CustomButton>
                     </View>
                 </Card>
             </View>
+            </View>
         </TouchableWithoutFeedback>
     )
 }
 const styles = StyleSheet.create({
+    screenContainer:{
+        flex: 1
+    },
     screen:{
         flex: 1,
         alignItems: 'center',
@@ -151,7 +158,8 @@ const styles = StyleSheet.create({
         backgroundColor : 'gray'
     },
     textStyle:{
-        fontSize: 16
+        fontSize: 20,
+        fontFamily: 'serif'
     }
 });
 

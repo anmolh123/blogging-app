@@ -1,4 +1,4 @@
-#Mon Aug 17 21:18:19 IST 2020
+#Mon Aug 17 23:30:05 IST 2020
 base.0=/Users/mmt8608/Documents/ReactNative/blogging-app/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

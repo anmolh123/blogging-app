@@ -7,6 +7,11 @@ import Header from './Header';
 
 const DrawerNav = props => {
   const drawer= useRef(DrawerLayout);
+  const screenTitle = useRef("Home");
+
+  if(props.filterType === 'fav'){
+    screenTitle.current = 'Favourites';
+  }
 
   const navigationView = (
     <View style={styles.navigationContainer}>
@@ -17,8 +22,9 @@ const DrawerNav = props => {
                 resizeMode='cover'
             />
         </View>
-        <SubMenu title="Home" action={()=>{drawer.current.closeDrawer();Actions.homeBlog();}} name="home"/>
+        <SubMenu title="Home" action={()=>{drawer.current.closeDrawer();Actions.replace('homeBlog');}} name="home"/>
         <SubMenu title="Create" action={()=>{drawer.current.closeDrawer();Actions.createBlog();}} name="edit"/>
+        <SubMenu title="Favourites" action={()=>{drawer.current.closeDrawer();Actions.replace('homeBlog',{ filterType: 'fav'});}} name="heart"/>
         <SubMenu title="Sign-out" action={()=>{drawer.current.closeDrawer();Actions.logOut();}} name="sign-out"/>
     </View>
   );
@@ -30,7 +36,7 @@ const DrawerNav = props => {
         renderNavigationView={() => navigationView}
         ref={drawer}
       >
-        <Header iconName="navicon" title="Home" action={()=>drawer.current.openDrawer()}/>
+        <Header iconName="navicon" title={screenTitle.current} action={()=>drawer.current.openDrawer()}/>
         <View style={styles.container}>
             {props.children}
         </View>

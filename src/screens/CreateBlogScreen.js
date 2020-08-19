@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { View, StyleSheet, Text,TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
+import { View, StyleSheet, Text,TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from 'react-native';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import CustomButton from '../components/CustomButton';
@@ -40,7 +40,8 @@ const CreateBlog = props =>{
                 userId : 1,
                 id : Math.floor(Math.random() * Math.floor(Math.random() * Date.now())),
                 title : title,
-                body: body
+                body: body,
+                imageSrc: `image${Math.floor(Math.random() * 5) + 1}`
             }
         }
         Keyboard.dismiss();
@@ -84,38 +85,42 @@ const CreateBlog = props =>{
             <View style={styles.screen}>
             <Header iconName="arrow-left" title={screenTitle.current} action={Actions.pop}/>
                 <Card style={styles.card}>
-                    <View style={styles.Inputcontainer}>
-                        <Text style={styles.textStyle}>Title</Text>
-                        <Input
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            value={title}
-                            style={styles.textAreaStyle}
-                            onChangeText={titleHandler}
-                            placeholder={'Blog Title'}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>Body</Text>
-                        <View style={styles.textAreaContainer}>
-                            <TextInput
+                    <ScrollView 
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <View style={styles.Inputcontainer}>
+                            <Text style={styles.textStyle}>Title</Text>
+                            <Input
                                 autoCapitalize="none"
                                 autoCorrect={false}
-                                editable
-                                maxLength={250}
-                                multiline
-                                numberOfLines = {12}
-                                textAlignVertical="top"
-                                value={body}
+                                value={title}
                                 style={styles.textAreaStyle}
-                                onChangeText={bodyHandler}
-                                placeholder="Content of the Blog"
+                                onChangeText={titleHandler}
+                                placeholder={'Blog Title'}
                             />
                         </View>
-                    </View>
-                    <View style={styles.ButtonContainer}>
-                        {buttonContent}
-                    </View>
+                        <View>
+                            <Text style={styles.textStyle}>Body</Text>
+                            <View style={styles.textAreaContainer}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    editable
+                                    maxLength={250}
+                                    multiline
+                                    numberOfLines = {12}
+                                    textAlignVertical="top"
+                                    value={body}
+                                    style={styles.textAreaStyle}
+                                    onChangeText={bodyHandler}
+                                    placeholder="Content of the Blog"
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.ButtonContainer}>
+                            {buttonContent}
+                        </View>
+                    </ScrollView>
                 </Card>
             </View>
         </TouchableWithoutFeedback>

@@ -3,15 +3,30 @@ import { View, StyleSheet, Text, TouchableWithoutFeedback,Keyboard } from 'react
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Header = props =>{
+
+    let rightIcon;
+    if(props.rightIcon){
+        rightIcon=(
+            <View style={styles.rightIconContainer}>
+                <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss(); props.rightAction(); }}>
+                    <Icon name={props.rightIconName} style={styles.icon} />
+                </TouchableWithoutFeedback>
+            </View>
+        );
+    }
+
     return (
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.header} >
-                <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss(); props.action(); }}>
-                    <Icon name={props.iconName} style={styles.icon} />
-                </TouchableWithoutFeedback>
+                { !props.showLeftIcon &&
+                    <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss(); props.action(); }}>
+                        <Icon name={props.iconName} style={styles.icon} />
+                    </TouchableWithoutFeedback>
+                }
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>{props.title}</Text>
                 </View>
+                {rightIcon}
             </View>
         </TouchableWithoutFeedback>
     )
@@ -25,7 +40,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     icon:{
-        fontSize: 40,
+        fontSize: 30,
         marginLeft: 10,
         color: 'white'
     },
@@ -36,6 +51,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'OpenSans-Bold',
         color: 'white'
+    },
+    rightIconContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginRight: 10
     }
 });
 

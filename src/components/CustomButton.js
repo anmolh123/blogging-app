@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         color: 'white',
-        fontSize: 16
+        fontSize: 18,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold'
     }
 });
 

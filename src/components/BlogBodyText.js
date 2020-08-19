@@ -4,7 +4,10 @@ import { View, StyleSheet, Text } from 'react-native';
 const BlogBodyText = props =>{
     return (
         <View>
-            <Text style={{...styles.bodyStyle, ...props.style}} >
+            <Text
+                {...props} 
+                style={{...styles.bodyStyle, ...props.style}} 
+            >
                 {props.children}
             </Text>
         </View>

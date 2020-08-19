@@ -12,6 +12,7 @@ import Card from '../components/Card';
 import Input from '../components/Input';
 import CustomButton from '../components/CustomButton';
 import { Actions } from 'react-native-router-flux';
+import Header from '../components/Header';
 
 const SignUpScreen = props =>{
 
@@ -86,36 +87,42 @@ const SignUpScreen = props =>{
 
     return (
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-            <View style={styles.screen} >
-                <Card style={styles.card}>
-                    <View style={styles.Inputcontainer}>
-                        <Text style={styles.textStyle}>User Name</Text>
-                        <Input
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            value={userName}
-                            onChangeText={userNameHandler}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>Password</Text>
-                        <Input
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            secureTextEntry
-                            value={password}
-                            onChangeText={passwordHandler}
-                        />
-                    </View>
-                    <View style={styles.ButtonContainer}>
-                        <CustomButton onPress={signUpHandler}>Sign Up</CustomButton>
-                    </View>
-                </Card>
+            <View style={styles.screenContainer}>
+                <Header iconName="arrow-left" title='Sign Up' action={Actions.pop}/>
+                <View style={styles.screen} >
+                    <Card style={styles.card}>
+                        <View style={styles.Inputcontainer}>
+                            <Text style={styles.textStyle}>User Name</Text>
+                            <Input
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                value={userName}
+                                onChangeText={userNameHandler}
+                            />
+                        </View>
+                        <View>
+                            <Text style={styles.textStyle}>Password</Text>
+                            <Input
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                secureTextEntry
+                                value={password}
+                                onChangeText={passwordHandler}
+                            />
+                        </View>
+                        <View style={styles.ButtonContainer}>
+                            <CustomButton onPress={signUpHandler}>Sign Up</CustomButton>
+                        </View>
+                    </Card>
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )
 }
 const styles = StyleSheet.create({
+    screenContainer:{
+        flex: 1
+    },
     screen:{
         flex: 1,
         alignItems: 'center',
@@ -135,7 +142,8 @@ const styles = StyleSheet.create({
         backgroundColor : 'gray'
     },
     textStyle:{
-        fontSize: 16
+        fontSize: 20,
+        fontFamily: 'serif'
     }
 });
 

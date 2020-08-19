@@ -4,7 +4,10 @@ import { View, StyleSheet, Text } from 'react-native';
 const BlogTitleText = props =>{
     return (
         <View style={styles.container}>
-            <Text style={{...styles.titleStyle, ...props.style}} >
+            <Text 
+                {...props}
+                style={{...styles.titleStyle, ...props.style}} 
+            >
                 {props.children}
             </Text>
         </View>

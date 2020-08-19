@@ -17,7 +17,8 @@ export const loadData = dispatch =>{
         axios.get('https://jsonplaceholder.typicode.com/posts/',{
             params: {
               _start: startIndex,
-              _limit: pageLimit
+              _limit: pageLimit,
+            //   userId: 1
             }
           })
         .then( response =>{
@@ -58,6 +59,23 @@ export const loadComments = dispatch =>{
         .then( response =>{
             // console.log("comment "+ postId," ", response.data);
             dispatch({type: actionTypes.LOAD_COMMENTS, payload: response.data, postId: postId});
+        });
+    }
+}
+
+export const toggleLike = (postId) =>{
+    return {
+        type: actionTypes.TOGGLE_LIKE,
+        id: postId
+    };
+}
+
+export const loadUserDetail = dispatch =>{
+    return (userId) => {
+        axios.get('https://jsonplaceholder.typicode.com/users/'+userId)
+        .then( response =>{
+            // console.log("comment "+ postId," ", response.data);
+            dispatch({type: actionTypes.LOAD_USERS, payload: response.data, userId: userId});
         });
     }
 }
