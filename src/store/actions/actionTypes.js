@@ -1,4 +1,4 @@
-import { exp } from "react-native-reanimated";
+
 
 export const CREATE_BLOG = 'CREATE_BLOG';
 export const LOAD_BLOG = 'LOAD_BLOG';

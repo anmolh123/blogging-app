@@ -32,7 +32,7 @@ const LogInScreen = props =>{
                 // console.log(users.current,userId.current);
             }
             if(userId.current){
-                setUserId(userId);
+                setUserId(userId.current);
                 Actions.replace('homeBlog');
             }
         } catch(error){

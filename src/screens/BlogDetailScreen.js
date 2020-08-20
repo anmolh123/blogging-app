@@ -7,7 +7,8 @@ import {
     Text,
     TouchableWithoutFeedback,
     Modal,
-    TouchableHighlight
+    TouchableHighlight,
+    Alert
 } from 'react-native';
 import BlogTitleText from '../components/BlogTitleText';
 import BlogBodyText from '../components/BlogBodyText';
@@ -45,6 +46,14 @@ const BlogDetailScreen = props =>{
     const deleteHandler = ()=>{
         props.deleteBlog(id);
         Actions.pop();
+    }
+
+    const deleteConfirmation = ()=>{
+        Alert.alert(
+            'Confirmation',
+            'You Sure you want to delete ?',
+            [ {text: 'OK', onPress: ()=>deleteHandler(), style: 'default'}, { text:'Cancel', style:'cancel' }]
+        )
     }
 
     const showCommentHandler = ()=>{
@@ -186,7 +195,7 @@ const BlogDetailScreen = props =>{
                     </CustomButton>
                     <CustomButton 
                         style={styles.deletebuttonStyle}
-                        onPress={deleteHandler}
+                        onPress={deleteConfirmation}
                     >Delete
                     </CustomButton>
                 </View>

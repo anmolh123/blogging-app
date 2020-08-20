@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo, useContext } from 'react';
 import {
     View,
     StyleSheet,
@@ -19,15 +19,20 @@ import SearchBar from '../components/SearchBar';
 import {buildMatchingTable, ahoCorasick } from '../search/ahoCorasick';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import imagesArray from '../assets/pictures/images';
+import { UserLoginContext } from '../context/UserLoginContext';
 
 const HomeScreen = React.memo(props =>{
 
     const [ searchTerm, setSearchTerm] = useState('');
     const [onEndReachedCalledDuringMomentum, setOnEndReachedCalledDuringMomentum] = useState(true);
+    const { userId } = useContext(UserLoginContext);
 
     useEffect(()=>{
         if(props.blogs.length === 0){
             props.loadMoreData(0);
+        }
+        if( userId && !props.users[userId]){
+            props.loadUserDetail(userId);
         }
     },[]);
 
@@ -131,7 +136,7 @@ const HomeScreen = React.memo(props =>{
     }
 
     return (
-            <DrawerNav filterType={props.filterType}>
+            <DrawerNav filterType={props.filterType} username = { props.users[userId] ? props.users[userId].username : null }>
                 <View style={styles.screen}>
                 <SearchBar
                     value={searchTerm}
@@ -202,14 +207,16 @@ const mapStateToProps = state => {
     return {
         blogs : state.blogs,
         start : state.start,
-        end : state.end
+        end : state.end,
+        users : state.users
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         loadMoreData : blogActions.loadData(dispatch),
-        toggleLike : postId => dispatch(blogActions.toggleLike(postId))
+        toggleLike : postId => dispatch(blogActions.toggleLike(postId)),
+        loadUserDetail : blogActions.loadUserDetail(dispatch)
     }
 }
 

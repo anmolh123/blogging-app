@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useContext } from 'react';
 import { View, StyleSheet, Text,TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from 'react-native';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -7,11 +7,13 @@ import { connect } from 'react-redux';
 import * as blogActions from '../store/actions/blogActions';
 import { Actions } from 'react-native-router-flux';
 import Header from '../components/Header';
+import { UserLoginContext } from '../context/UserLoginContext';
 
 const CreateBlog = props =>{
 
     const [ title, setTitle ]= useState('');
     const [ body, setBody ]= useState('');
+    const { userId } = useContext(UserLoginContext);
     const { isEdit, item } = props;
     const screenTitle = useRef("Create Blog");
 
@@ -37,7 +39,7 @@ const CreateBlog = props =>{
 
         const addBlogJson = {
             blog : {
-                userId : 1,
+                userId : userId,
                 id : Math.floor(Math.random() * Math.floor(Math.random() * Date.now())),
                 title : title,
                 body: body,

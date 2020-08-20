@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 import DrawerLayout from 'react-native-drawer-layout';
 import { Actions } from "react-native-router-flux";
 import SubMenu from './subMenu';
@@ -21,6 +21,9 @@ const DrawerNav = props => {
                 style={styles.image}
                 resizeMode='cover'
             />
+            <View style={styles.username}>
+              <Text style={styles.usernametext}>Hello, {props.username}</Text>
+          </View>
         </View>
         <SubMenu title="Home" action={()=>{drawer.current.closeDrawer();Actions.replace('homeBlog');}} name="home"/>
         <SubMenu title="Create" action={()=>{drawer.current.closeDrawer();Actions.createBlog();}} name="edit"/>
@@ -58,7 +61,8 @@ const styles = StyleSheet.create({
   imageContainer:{
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    paddingVertical: 40
+    paddingVertical: 20,
+    paddingBottom: 10
   },
   image:{
       alignSelf: 'center',
@@ -67,6 +71,15 @@ const styles = StyleSheet.create({
       borderRadius: 80,
       borderWidth: 1,
       borderColor: 'white'
+  },
+  username:{
+    marginHorizontal: 20,
+    marginTop: 30
+  },
+  usernametext:{ 
+    fontFamily: 'serif',
+    color : 'white',
+    fontSize: 20
   }
 });
 
